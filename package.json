@@ -1,0 +1,31 @@
+{
+    "name": "find-quiz-regex",
+    "version": "1.0.0",
+    "description": "Locates quiz questions with regex in them.",
+    "main": "main.js",
+    "dependencies": {
+        "canvas-wrapper": "github:byuitechops/canvas-wrapper",
+        "d3-dsv": "^1.0.8",
+        "he": "^1.1.1"
+    },
+    "devDependencies": {
+        "async": "^2.6.0",
+        "child-development-kit": "github:byuitechops/child-development-kit",
+        "tap": "^10.7.3"
+    },
+    "scripts": {
+        "start": "node ./node_modules/child-development-kit/runChild.js",
+        "test": "tap ./node_modules/child-development-kit/testChild.js -T"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/byuitechops/find-regex.git"
+    },
+    "author": "Zachary Williams",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/byuitechops/find-regex/issues"
+    },
+    "homepage": "https://github.com/byuitechops/find-regex#readme",
+    "childType": "preImport"
+}
