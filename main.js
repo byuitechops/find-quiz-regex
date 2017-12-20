@@ -59,7 +59,7 @@ module.exports = (course, stepCallback) => {
                 // Get instance's parent, then sibling
                 regexRefs.each((i, instance) => {
                     var regexExpression = $(instance).parent().prev().text();
-                    var regexCount = Object.keys(questionObject).length - 1;
+                    var regexCount = Object.keys(questionObject).length - 3;
                     questionObject[`Regex${regexCount}`] = regexExpression;
                 });
                 questions.push(questionObject);
