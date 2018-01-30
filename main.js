@@ -9,7 +9,7 @@ const fs = require('fs');
 const he = require('he');
 
 module.exports = (course, stepCallback) => {
-    course.addModuleReport('find-quiz-regex');
+    var questionList;
 
     function getRegex(files) {
         /* The array we'll be saving questions to */
@@ -37,25 +37,25 @@ module.exports = (course, stepCallback) => {
 
             // Get regex instances in questions, then save the question to the array
             regexQuestions.each((index, question) => {
+                var mattexts, html, questionObject, regexRefs;
 
-
-
-                var mattexts = question.dom.find('mattext').map((i, mattext) => {
+                mattexts = question.dom.find('mattext').map((i, mattext) => {
                     return $(mattext).text();
                 }).get().join(' ____ ');
 
-                var html = he.decode(mattexts);
+                html = he.decode(mattexts);
                 if (html.length > 70) {
                     html = html.substr(0, 70) + '...';
                 }
 
-                var questionObject = {
+                questionObject = {
                     Quiz: $('assessment').attr('title'),
                     Number: question.number,
                     'Question Title': $(question).attr('title'),
-                    Question: $.load(html).text().replace(/\s+/g," ")
+                    Question: $.load(html).text().replace(/\s+/g, ' ')
                 };
-                var regexRefs = question.dom.find('d2l_2p0\\:answer_is_regexp');
+
+                regexRefs = question.dom.find('d2l_2p0\\:answer_is_regexp');
                 // Get instance's parent, then sibling
                 regexRefs.each((i, instance) => {
                     var regexExpression = $(instance).parent().prev().text();
@@ -75,10 +75,10 @@ module.exports = (course, stepCallback) => {
         var csvString = d3.csvFormat(questions);
 
         // Write the CSV
-        fs.writeFile(`./${course.info.fileName.split('.zip')[0]} Regex Questions.csv`, csvString, 'ASCII', (err) => {
+        fs.writeFile(`./reports/${course.info.fileName.split('.zip')[0]} Regex Questions.csv`, csvString, 'ASCII', (err) => {
             if (err) console.error(err);
             else {
-                console.log('Regex CSV has been written.');
+                course.message(`Regex CSV for ${course.info.fileName} has been written.`);
                 stepCallback(null, course);
             }
         });
@@ -86,6 +86,6 @@ module.exports = (course, stepCallback) => {
 
     }
 
-    var questions = getRegex(course.content);
-    writeCSV(questions);
+    questionList = getRegex(course.content);
+    writeCSV(questionList);
 };
