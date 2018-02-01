@@ -75,7 +75,7 @@ module.exports = (course, stepCallback) => {
         var csvString = d3.csvFormat(questions);
 
         // Write the CSV
-        fs.writeFile(`./reports/${course.info.fileName.split('.zip')[0]} Regex Questions.csv`, csvString, 'ASCII', (err) => {
+        fs.writeFile(`./reports/${course.info.fileName.split('.zip')[0]} Regex Questions - ${course.info.D2LOU}.csv`, csvString, 'ASCII', (err) => {
             if (err) console.error(err);
             else {
                 course.message(`Regex CSV for ${course.info.fileName} has been written.`);
