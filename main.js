@@ -56,14 +56,6 @@ module.exports = (course, stepCallback) => {
                 'Question': $.load(html).text().replace(/\s+/g, ' '),
                 'Regexs': question.dom.find('d2l_2p0\\:answer_is_regexp')
             });
-
-            // regexRefs = question.dom.find('d2l_2p0\\:answer_is_regexp');
-            // // Get instance's parent, then sibling
-            // regexRefs.each((i, instance) => {
-            //     var regexExpression = $(instance).parent().prev().text();
-            //     var regexCount = Object.keys(questionObject).length - 3;
-            //     questionObject[`Regex${regexCount}`] = regexExpression;
-            // });
         });
     });
 
