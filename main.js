@@ -30,7 +30,7 @@ module.exports = (course, stepCallback) => {
 
         // Get regex instances in questions, then save the question to the array
         regexQuestions.each((index, question) => {
-            var mattexts, html, questionObject, regexRefs;
+            var mattexts, html;
 
             mattexts = question.dom.find('mattext').map((i, mattext) => {
                 return $(mattext).text();
@@ -41,19 +41,16 @@ module.exports = (course, stepCallback) => {
                 html = html.substr(0, 70) + '...';
             }
 
-            questionObject = {
-                Quiz: $('assessment').attr('title'),
-                Number: question.number,
-                'Question Title': $(question).attr('title'),
-                Question: $.load(html).text().replace(/\s+/g, ' ')
-            };
+            var regexs = question.dom.find('d2l_2p0\\:answer_is_regexp').map(function (i, el) {
+                return $(el).parent().prev().text();
+            }).get().join(', ');
 
             course.log('Quiz Questions with Regex', {
                 'Quiz': $('assessment').attr('title'),
                 'Question Number': question.number,
                 'Question Title': $(question).attr('title') || '(blank)',
                 'Question': $.load(html).text().replace(/\s+/g, ' '),
-                'Regexs': question.dom.find('d2l_2p0\\:answer_is_regexp')
+                'Regexs': regexs
             });
         });
     });
