@@ -52,7 +52,7 @@ module.exports = (course, stepCallback) => {
             course.log('Quiz Questions with Regex', {
                 'Quiz': $('assessment').attr('title'),
                 'Question Number': question.number,
-                'Question Title': $(question).attr('title'),
+                'Question Title': $(question).attr('title') || '(blank)',
                 'Question': $.load(html).text().replace(/\s+/g, ' '),
                 'Regexs': question.dom.find('d2l_2p0\\:answer_is_regexp')
             });
