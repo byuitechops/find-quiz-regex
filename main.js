@@ -8,7 +8,6 @@ const he = require('he');
 
 module.exports = (course, stepCallback) => {
 
-
     // Filter down to only quizzes
     var quizzes = course.content.filter(file => file.name.includes('quiz') && file.ext === '.xml');
 
